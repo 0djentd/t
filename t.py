@@ -3,6 +3,7 @@
 """t is for people that want do things, not organize their tasks."""
 
 from __future__ import with_statement, print_function
+from rich import print
 
 import os, re, sys, hashlib
 from operator import itemgetter
@@ -95,10 +96,12 @@ def _prefixes(ids):
     ps = {}
     for id in ids:
         id_len = len(id)
+        prefix: str = ""
+        i: int = 0
         for i in range(1, id_len+1):
             # identifies an empty prefix slot, or a singular collision
             prefix = id[:i]
-            if (not prefix in ps) or (ps[prefix] and prefix != ps[prefix]):
+            if (prefix not in ps) or (ps[prefix] and prefix != ps[prefix]):
                 break
         if prefix in ps:
             # if there is a collision
